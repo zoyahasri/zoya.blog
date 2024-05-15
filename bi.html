@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 800px;
+      margin: 20px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  
+  <canvas id="courseDistributionChart"></canvas>
+  <canvas id="regionDistributionChart"></canvas>
+  <canvas id="dropoutPercentageChart"></canvas>
+
+  <script>
+    // Sample data
+    const courseDistributionData = {
+      labels: ['Engineering', 'Medicine', 'Computer Science'],
+      data: [300, 450, 250] // Replace with actual data
+    };
+
+    const regionDistributionData = {
+      labels: ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Matara', 'Kurunegala', 'Anuradhapura', 'Badulla', 'Trincomalee', 'Batticaloa'],
+      data: [200, 150, 180, 120, 90, 100, 80, 70, 60, 50] // Replace with actual data
+    };
+
+    const dropoutPercentageData = {
+      labels: ['Batch 1', 'Batch 2', 'Batch 3'], // Replace with actual batch labels
+      engineering: [10, 15, 20], // Replace with actual dropout percentages for Engineering
+      medicine: [5, 8, 12], // Replace with actual dropout percentages for Medicine
+      computerScience: [8, 10, 15] // Replace with actual dropout percentages for Computer Science
+    };
+
+    // Course distribution chart
+    new Chart(document.getElementById('courseDistributionChart'), {
+      type: 'bar',
+      data: {
+        labels: courseDistributionData.labels,
+        datasets: [{
+          label: 'Course Distribution',
+          data: courseDistributionData.data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Region distribution chart
+    new Chart(document.getElementById('regionDistributionChart'), {
+      type: 'bar',
+      data: {
+        labels: regionDistributionData.labels,
+        datasets: [{
+          label: 'Region Distribution',
+          data: regionDistributionData.data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Dropout percentage chart
+    new Chart(document.getElementById('dropoutPercentageChart'), {
+      type: 'line',
+      data: {
+        labels: dropoutPercentageData.labels,
+        datasets: [{
+          label: 'Engineering',
+          data: dropoutPercentageData.engineering,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 2,
+          fill: false
+        }, {
+          label: 'Medicine',
+          data: dropoutPercentageData.medicine,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 2,
+          fill: false
+        }, {
+          label: 'Computer Science',
+          data: dropoutPercentageData.computerScience,
+          borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 2,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
