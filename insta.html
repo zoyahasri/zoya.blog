@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Impressive Bio Generator</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Impressive Bio Generator</h1>
+    <form id="bioForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+      
+      <label for="interests">Coding Interests (comma-separated):</label>
+      <input type="text" id="interests" required>
+      
+      <label for="impressiveness">Impressiveness Factors (comma-separated):</label>
+      <input type="text" id="impressiveness" required>
+      
+      <button type="submit">Generate Bio</button>
+    </form>
+
+    <div id="bioDisplay"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const bioForm = document.getElementById('bioForm');
+      const bioDisplay = document.getElementById('bioDisplay');
+
+      bioForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const interests = document.getElementById('interests').value;
+        const impressiveness = document.getElementById('impressiveness').value;
+
+        const intro = `Hey there, I'm ${name}! 👋 `;
+        const interest = `Passionate about ${interests.split(',').map(item => item.trim())[0]} and always up for a funny challenge. 💻🚀 `;
+        const codingPower = `Get ready to witness some ${impressiveness.split(',').map(item => item.trim())[0]} funny creations! 💡🌟 `;
+        const outro = "Let's connect and geek out together! 🤓👾 #CodingEnthusiast #TechJourney";
+
+        const generatedBio = `${intro}${interest}${codingPower}${outro}`;
+        bioDisplay.textContent = generatedBio;
+
+        // Send user data to the server
+        fetch('/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `name=${encodeURIComponent(name)}&interests=${encodeURIComponent(interests)}&impressiveness=${encodeURIComponent(impressiveness)}`,
+        });
+      });
+    });
+  </script>
+</body>
+</html>
